@@ -1,8 +1,9 @@
 'use client'
 
+import { profile } from '@/constants'
 import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
-import { FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { FaEnvelope, FaLinkedin } from 'react-icons/fa'
 import { RxGithubLogo } from 'react-icons/rx'
 
 const Footer: FC = () => {
@@ -26,59 +27,43 @@ const Footer: FC = () => {
 
   const socialLinks = [
     {
-      href: 'https://github.com/Ashlok2003',
+      href: profile.github,
       icon: <RxGithubLogo className="w-5 h-5" />,
       label: 'GitHub',
     },
     {
-      href: 'https://www.linkedin.com/in/ashlok2003/',
+      href: profile.linkedin,
       icon: <FaLinkedin className="w-5 h-5" />,
       label: 'LinkedIn',
     },
     {
-      href: 'https://x.com/ashlok2003',
-      icon: <FaTwitter className="w-5 h-5" />,
-      label: 'Twitter',
+      href: `mailto:${profile.email}`,
+      icon: <FaEnvelope className="w-5 h-5" />,
+      label: 'Email',
     },
   ]
 
-  const quickLinks = ['About', 'Skills', 'Projects']
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-  }
+  const quickLinks = ['About', 'Skills', 'Experience', 'Projects', 'Credentials', 'Resume', 'Contact']
 
   return (
     <footer className="relative w-full px-6 py-12 mt-20 bg-background text-foreground border-t border-border transition-colors">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-blue-500 to-cyan-500" />
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          <motion.div className="space-y-4" variants={childVariants}>
-            <h1 className="text-2xl font-extrabold bg-clip-text">Ashlok Chaudhary</h1>
+          <div className="space-y-4">
+            <h1 className="text-2xl font-extrabold">{profile.name}</h1>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Crafting scalable web apps, open-source tools, and innovative digital experiences.
+              {profile.role} building and operating production CI/CD and cloud infrastructure.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div className="space-y-4" variants={childVariants}>
+          <div className="space-y-4">
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               Quick Links
             </h2>
@@ -95,46 +80,39 @@ const Footer: FC = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div className="space-y-4" variants={childVariants}>
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Connect
-            </h2>
+          <div className="space-y-4">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Connect</h2>
             <div className="flex flex-wrap gap-3">
               {socialLinks.map((link) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 bg-muted rounded-full hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  aria-label={`Visit my ${link.label} profile`}
+                  target={link.label === 'Email' ? undefined : '_blank'}
+                  rel={link.label === 'Email' ? undefined : 'noopener noreferrer'}
+                  className="flex items-center justify-center w-10 h-10 bg-muted rounded-full hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white transition-all duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  aria-label={`Visit my ${link.label}`}
                 >
                   {link.icon}
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
-        <motion.div
-          className="mt-12 text-center space-y-2"
-          variants={childVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="mt-12 text-center space-y-2">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Built with ❤️ by Ashlok Chaudhary.
+            (c) {new Date().getFullYear()} Built by {profile.name}.
           </p>
           <p className="text-xs text-muted-foreground">
             Visitors:{' '}
-            <span className="font-semibold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="font-semibold bg-gradient-to-r from-red-400 to-cyan-400 bg-clip-text text-transparent">
               {visitorCount.toLocaleString()}
             </span>
           </p>
-        </motion.div>
+        </div>
       </div>
     </footer>
   )

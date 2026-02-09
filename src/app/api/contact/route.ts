@@ -2,7 +2,8 @@ export const runtime = 'edge'
 
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const contactEmail = process.env.CONTACT_EMAIL ?? 'raghulvijay01@gmail.com'
+const fromEmail = process.env.CONTACT_FROM_EMAIL ?? 'Portfolio Contact <onboarding@resend.dev>'
 
 interface FormData {
   name: string
@@ -53,23 +54,31 @@ export async function POST(req: Request) {
   const sanitizedMessage = message.replace(/[<>]/g, '')
 
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return new Response(JSON.stringify({ error: 'Contact service is not configured.' }), {
+        status: 500,
+      })
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY)
+
     const { error } = await resend.emails.send({
-      from: `Contact Form <no-reply@ashlok.dev>`,
-      to: ['chaudharyashlok@gmail.com'],
+      from: fromEmail,
+      to: [contactEmail],
       replyTo: email,
       subject: sanitizedSubject,
       html: `
-  <h2>New Contact Form Submission</h2>
-  <p><strong>Name:</strong> ${sanitizedName}</p>
-  <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-  <p><strong>Subject:</strong> ${sanitizedSubject}</p>
-  <p><strong>Message:</strong></p>
-  <blockquote style="margin-left:1rem; border-left: 2px solid #ccc; padding-left: 1rem;">
-    ${sanitizedMessage.replace(/\n/g, '<br />')}
-  </blockquote>
-  <hr />
-  <p style="font-size: 0.85rem; color: #666;">Sent via portfolio contact form on ashlok.dev</p>
-`,
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${sanitizedName}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Subject:</strong> ${sanitizedSubject}</p>
+        <p><strong>Message:</strong></p>
+        <blockquote style="margin-left:1rem; border-left: 2px solid #ccc; padding-left: 1rem;">
+          ${sanitizedMessage.replace(/\n/g, '<br />')}
+        </blockquote>
+        <hr />
+        <p style="font-size: 0.85rem; color: #666;">Sent via portfolio contact form</p>
+      `,
     })
 
     if (error) {

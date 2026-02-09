@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import { Variants, motion } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
@@ -13,8 +14,8 @@ import {
   FaUser,
 } from 'react-icons/fa'
 import { FaSquarePhone } from 'react-icons/fa6'
+import { profile } from '@/constants'
 import { buttonVariants } from '../ui/button'
-import { cn } from '@/lib/utils'
 
 interface FormData {
   name: string
@@ -76,10 +77,6 @@ const ContactUs: FC = () => {
       scale: 1,
       transition: { duration: 0.6, ease: 'easeOut' },
     },
-    hover: {
-      scale: 1.02,
-      transition: { duration: 0.3 },
-    },
   }
 
   const inputVariants: Variants = {
@@ -98,66 +95,59 @@ const ContactUs: FC = () => {
           className="max-w-7xl mx-auto bg-muted/50 backdrop-blur-lg rounded-none p-8 sm:p-10 shadow-2xl border border-border"
           variants={cardVariants}
           initial="hidden"
-          animate="visible"
-          whileHover="hover"
+          whileInView="visible"
+          viewport={{ once: true }}
         >
           <div className="flex flex-col md:flex-row gap-12">
-            <motion.div
-              className="w-full md:w-1/2 space-y-6"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <h2 className="text-4xl font-extrabold">Connect With Me</h2>
+            <motion.div className="w-full md:w-1/2 space-y-6" variants={cardVariants}>
+              <h2 className="text-4xl font-extrabold">Contact</h2>
               <p className="text-muted-foreground leading-relaxed text-base">
-                Have a project in mind or a question? Reach out and let&apos;s turn your ideas into
-                reality.
+                Reach out for DevOps, platform engineering, cloud migration, or observability-focused
+                opportunities.
               </p>
 
               <div className="space-y-5 text-foreground">
                 <div className="flex items-center gap-3">
                   <FaEnvelope className="text-primary text-lg" />
-                  <span className="text-sm font-medium select-text">chaudharyashlok@gmail.com</span>
+                  <span className="text-sm font-medium select-text">{profile.email}</span>
                   <button
-                    onClick={() => copyToClipboard('chaudharyashlok@gmail.com', 'Email')}
+                    onClick={() => copyToClipboard(profile.email, 'Email')}
                     className="text-muted-foreground hover:text-primary transition"
                     aria-label="Copy email"
                   >
                     <FaRegCopy />
                   </button>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <FaSquarePhone className="text-primary text-lg" />
-                  <span className="text-sm font-medium select-text">+91 77670 12860</span>
+                  <span className="text-sm font-medium select-text">{profile.phoneDisplay}</span>
                   <button
-                    onClick={() => copyToClipboard('+91 7767012860', 'Phone number')}
+                    onClick={() => copyToClipboard(profile.phoneDisplay, 'Phone number')}
                     className="text-muted-foreground hover:text-primary transition"
                     aria-label="Copy phone number"
                   >
                     <FaRegCopy />
                   </button>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <FaMapMarkerAlt className="text-primary text-lg" />
-                  <span className="text-sm font-medium select-text">Mumbai, India</span>
+                  <span className="text-sm font-medium select-text">{profile.location}</span>
                 </div>
               </div>
             </motion.div>
 
-            <motion.div
-              className="w-full md:w-1/2 space-y-6"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact Form">
+            <motion.div className="w-full md:w-1/2 space-y-6" variants={cardVariants}>
+              <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact form">
                 {['name', 'email', 'subject'].map((field, i) => (
                   <motion.div
                     key={field}
                     custom={i}
                     variants={inputVariants}
                     initial="hidden"
-                    animate="visible"
+                    whileInView="visible"
+                    viewport={{ once: true }}
                   >
                     <div className="relative">
                       {field === 'name' && (
@@ -169,6 +159,7 @@ const ContactUs: FC = () => {
                       {field === 'subject' && (
                         <MessageCircle className="absolute top-3.5 left-3 text-muted-foreground" />
                       )}
+
                       <input
                         type={field === 'email' ? 'email' : 'text'}
                         name={field}
@@ -182,17 +173,25 @@ const ContactUs: FC = () => {
                     </div>
                   </motion.div>
                 ))}
-                <motion.div custom={3} variants={inputVariants} initial="hidden" animate="visible">
+
+                <motion.div
+                  custom={3}
+                  variants={inputVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Please Drop Your Short Message..."
+                    placeholder="Tell me about your requirement or project."
                     className="w-full pl-4 pr-4 py-3 bg-background/50 text-foreground rounded-none h-36 resize-none focus:outline-none focus:ring-2 focus:ring-primary placeholder-muted-foreground transition-all"
                     required
                     aria-label="Message"
                   />
                 </motion.div>
+
                 <motion.button
                   type="submit"
                   className={cn(
@@ -201,7 +200,7 @@ const ContactUs: FC = () => {
                         'w-full py-3 rounded-none flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed',
                     }),
                   )}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={isSubmitting}
                 >
@@ -215,6 +214,7 @@ const ContactUs: FC = () => {
                     </>
                   )}
                 </motion.button>
+
                 {status && (
                   <motion.p
                     className={`text-center text-sm ${

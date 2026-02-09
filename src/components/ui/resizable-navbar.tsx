@@ -1,5 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
+import { profile } from '@/constants'
 import { IconMenu2, IconX } from '@tabler/icons-react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
 import Image from 'next/image'
@@ -237,15 +238,15 @@ export const NavbarLogo = ({ isScrolled }: { isScrolled: boolean }) => {
       aria-label="Navigate to About section"
     >
       <Image
-        src="/ashlok.jpg"
-        alt="Ashlok Chaudhary"
+        src={profile.avatar}
+        alt={`${profile.name} profile photo`}
         width={32}
         height={32}
-        className="rounded-full"
+        className="rounded-full object-cover"
       />
       {!isScrolled && (
         <span className="text-lg font-bold group-hover:text-red-500 transition-colors">
-          Ashlok Chaudhary
+          {profile.name}
         </span>
       )}
     </a>

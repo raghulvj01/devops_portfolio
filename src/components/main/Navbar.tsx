@@ -13,7 +13,15 @@ import {
 import { ThemeToggle } from '@/hooks/use-toogle'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { FaBlog, FaBriefcase, FaCode, FaEnvelope, FaProjectDiagram, FaUser } from 'react-icons/fa'
+import {
+  FaAward,
+  FaBriefcase,
+  FaCode,
+  FaEnvelope,
+  FaFileAlt,
+  FaProjectDiagram,
+  FaUser,
+} from 'react-icons/fa'
 import { Button } from '../ui/button'
 
 export function Navbar() {
@@ -25,7 +33,8 @@ export function Navbar() {
     { name: 'Skills', link: '#skills', icon: <FaCode /> },
     { name: 'Experience', link: '#experience', icon: <FaBriefcase /> },
     { name: 'Projects', link: '#projects', icon: <FaProjectDiagram /> },
-    { name: 'Blogs', link: '#blogs', icon: <FaBlog /> },
+    { name: 'Credentials', link: '#credentials', icon: <FaAward /> },
+    { name: 'Resume', link: '#resume', icon: <FaFileAlt /> },
   ]
 
   useEffect(() => {
@@ -35,7 +44,7 @@ export function Navbar() {
   }, [])
 
   return (
-    <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300`}>
+    <div className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
       <NavbarWrapper className="flex flex-col items-center justify-between gap-4 px-4 py-2">
         <NavBody>
           <NavbarLogo isScrolled={isScrolled} />
@@ -50,6 +59,7 @@ export function Navbar() {
               onClick={() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
               }}
+              aria-label="Open contact section"
             >
               <FaEnvelope />
             </Button>
@@ -72,9 +82,7 @@ export function Navbar() {
                 href={item.link}
                 onClick={() => {
                   setIsMobileMenuOpen(false)
-                  document
-                    .getElementById(item.link.slice(1))
-                    ?.scrollIntoView({ behavior: 'smooth' })
+                  document.getElementById(item.link.slice(1))?.scrollIntoView({ behavior: 'smooth' })
                 }}
                 className="relative text-neutral-600 dark:text-neutral-300 flex gap-2 items-center"
               >

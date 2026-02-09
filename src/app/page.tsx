@@ -1,4 +1,4 @@
-import { BlogsSection } from '@/components/main/Blogs'
+import { CredentialsSection } from '@/components/main/Blogs'
 import ContactUs from '@/components/main/ContactUs'
 import Hero from '@/components/main/Hero'
 import Projects from '@/components/main/Projects'
@@ -13,10 +13,10 @@ export default function Home() {
       <div className="flex flex-col gap-20">
         <Hero />
         <Skills />
-        <ResumeSection />
         <Timeline />
         <Projects />
-        <BlogsSection />
+        <CredentialsSection />
+        <ResumeSection />
         <ContactUs />
         <Toaster position="bottom-right" />
       </div>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="ReN3 logo banner">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4f4f5"/>
+      <stop offset="100%" stop-color="#e5e7eb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#ffffff" stroke="#d4d4d8" stroke-width="3"/>
+
+  <!-- Brand icon (stylized mark similar to provided logo) -->
+  <g transform="translate(380 290)">
+    <path
+      d="M165 30C115 10 60 35 40 85c-20 48-2 104 41 130 44 28 102 18 136-22l-38-31c-17 19-46 24-69 10-24-14-35-43-24-68 12-28 44-41 71-29l-12 37 88-24-56-71-12 39z"
+      fill="#000000"
+    />
+  </g>
+
+  <!-- ReN3 text -->
+  <g transform="translate(640 330)" fill="#000000" font-family="Segoe UI, Arial, sans-serif" font-weight="900">
+    <text x="0" y="180" font-size="220" letter-spacing="-7">Re</text>
+    <text x="348" y="108" font-size="84" letter-spacing="-2">N3</text>
+  </g>
+
+  <text
+    x="800"
+    y="760"
+    text-anchor="middle"
+    fill="#27272a"
+    font-family="Segoe UI, Arial, sans-serif"
+    font-size="46"
+    font-weight="600"
+  >
+    Ren3 AI Platform
+  </text>
+</svg>

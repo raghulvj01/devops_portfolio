@@ -1,5 +1,6 @@
 import Footer from '@/components/main/Footer'
 import { Navbar } from '@/components/main/Navbar'
+import { profile } from '@/constants'
 import { ThemeProvider } from '@/components/theme-provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -16,9 +17,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Ashlok Chaudhary',
+  title: `${profile.name} | ${profile.role}`,
   description:
-    'A clean, modern, and responsive developer portfolio showcasing my projects, skills, and experience. Built using Next.js and styled with Tailwind CSS and ShadCN UI, and deployed seamlessly on Cloudflare Pages for speed and scalability.',
+    'DevOps and platform engineering portfolio focused on Kubernetes, multi-cloud architecture, CI/CD, observability, and production reliability.',
 }
 
 export default function RootLayout({
@@ -28,7 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        suppressHydrationWarning
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

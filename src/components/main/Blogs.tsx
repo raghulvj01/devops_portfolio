@@ -1,84 +1,64 @@
 'use client'
 
-import { BlogTile } from '@/components/sub/BlogTile'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { useState } from 'react'
+import { additionalStrengths, certifications, languages } from '@/constants'
+import { motion } from 'framer-motion'
 
-const blogs = [
-  {
-    id: 1,
-    title: '🛒 ShopXIndia: A Scalable E-Commerce Platform',
-    excerpt:
-      'Behind the scenes of ShopXIndia — a microservices-based e-commerce platform built with GraphQL Federation.',
-    content: `ShopXIndia is a fully-featured e-commerce platform built with a microservices architecture
-and powered by GraphQL Federation for unified APIs.
-It leverages modern technologies to provide a seamless shopping experience while keeping the backend
-modular and maintainable.
-In this blog, I discuss how I designed the federated services, implemented authentication,
-and optimized query performance for scalability.`,
-  },
-  {
-    id: 2,
-    title: '💬 SocialPedia: A Modern Social Media Platform',
-    excerpt:
-      'From real-time chat to WebRTC calls — building SocialPedia, a full-stack social media app.',
-    content: `SocialPedia is a social media platform built using Node.js, React, MongoDB, Redux, WebSockets, and WebRTC.
-It supports features like real-time chat, notifications, friend management, and live audio/video calls.
-In this blog, I share how I implemented real-time capabilities, tackled state management challenges,
-and created an engaging, responsive user experience.`,
-  },
-  {
-    id: 3,
-    title: '🔒 FileShareX: Secure File Sharing Made Easy',
-    excerpt:
-      'Designing and building FileShareX — a secure, simple, and user-friendly file sharing app.',
-    content: `FileShareX is a secure file-sharing application built with React, Node.js, and MongoDB.
-It enables users to share files easily using QR codes, email links, or direct links — no complex setup required.
-In this blog, I explain how I implemented secure file uploads & downloads, integrated QR and email sharing,
-and designed a clean UX for hassle-free collaboration.`,
-  },
-]
-
-export function BlogsSection() {
-  const [selectedBlog, setSelectedBlog] = useState<null | (typeof blogs)[0]>(null)
-
+export function CredentialsSection() {
   return (
-    <section id="blogs" className="w-full py-12 dark:bg-neutral-950">
-      <div className="mx-auto max-w-5xl px-4">
-        <h2 className="mb-8 text-3xl font-bold text-center text-zinc-800 dark:text-zinc-100">
-          Blogs
-        </h2>
+    <section id="credentials" className="w-full py-16 bg-background text-foreground">
+      <div className="mx-auto max-w-6xl px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold">Certifications and Strengths</h2>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto">
+            Credentials and core strengths that support delivery across DevOps, cloud operations, and platform engineering.
+          </p>
+        </motion.div>
 
-        <div className="grid gap-4">
-          {blogs.map((blog) => (
-            <BlogTile
-              key={blog.id}
-              title={blog.title}
-              excerpt={blog.excerpt}
-              onRead={() => setSelectedBlog(blog)}
-            />
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <article className="rounded-xl border border-border bg-card p-5 shadow-sm">
+            <h3 className="text-lg font-semibold">Certifications</h3>
+            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+              {certifications.map((certification) => (
+                <li key={certification} className="list-disc ml-5 text-foreground">
+                  {certification}
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rounded-xl border border-border bg-card p-5 shadow-sm">
+            <h3 className="text-lg font-semibold">Languages</h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {languages.map((language) => (
+                <li
+                  key={language}
+                  className="rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
+                >
+                  {language}
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rounded-xl border border-border bg-card p-5 shadow-sm lg:col-span-1">
+            <h3 className="text-lg font-semibold">Additional Strengths</h3>
+            <ul className="mt-3 space-y-3 text-sm text-muted-foreground">
+              {additionalStrengths.map((strength) => (
+                <li key={strength.title}>
+                  <span className="font-semibold text-foreground">{strength.title}:</span>{' '}
+                  {strength.detail}
+                </li>
+              ))}
+            </ul>
+          </article>
         </div>
       </div>
-
-      <Dialog open={!!selectedBlog} onOpenChange={() => setSelectedBlog(null)}>
-        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] max-h-[90vh] overflow-y-auto p-6 rounded-lg bg-white dark:bg-neutral-900">
-          {selectedBlog && (
-            <>
-              <DialogHeader className="sticky top-0 bg-white dark:bg-neutral-900 z-10 pb-4 border-b border-zinc-200 dark:border-zinc-700">
-                <DialogTitle className="text-2xl font-bold text-zinc-800 dark:text-zinc-100">
-                  {selectedBlog.title}
-                </DialogTitle>
-              </DialogHeader>
-              <div className="mt-6 prose prose-zinc dark:prose-invert max-w-none">
-                <p className="text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  {selectedBlog.content}
-                </p>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   )
 }

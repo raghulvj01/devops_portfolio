@@ -1,41 +1,17 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
+import { profile } from '@/constants'
 import { slideInFromLeft, slideInFromRight, slideInFromTop } from '@/utils/motion'
 import { motion } from 'framer-motion'
 import { FaGithub } from 'react-icons/fa'
-import { FC } from 'react'
 import { TbDeviceLaptop } from 'react-icons/tb'
+import { Badge } from '../ui/badge'
 import { PointerHighlight } from '../ui/pointer-highlight'
 import { NavbarButton } from '../ui/resizable-navbar'
 
-const HeroContent: FC = () => {
-  function smoothScrollTo(element: HTMLElement, duration = 1000) {
-    const start = window.scrollY
-    const end = element.getBoundingClientRect().top + start
-    const distance = end - start
-    const startTime = performance.now()
-
-    function scroll(currentTime: number) {
-      const elapsed = currentTime - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const ease = 1 - Math.pow(1 - progress, 3)
-
-      window.scrollTo(0, start + distance * ease)
-
-      if (elapsed < duration) {
-        requestAnimationFrame(scroll)
-      }
-    }
-
-    requestAnimationFrame(scroll)
-  }
-
-  const handleConnectClick = () => {
-    const contactSection = document.getElementById('contact')
-    if (contactSection) {
-      smoothScrollTo(contactSection, 4200)
-    }
+const HeroContent = () => {
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -47,43 +23,57 @@ const HeroContent: FC = () => {
       <motion.div variants={slideInFromTop} className="flex items-center gap-2">
         <Badge variant="secondary" className="bg-red-500 text-white dark:bg-red-500 font-extrabold">
           <TbDeviceLaptop />
-          The Developer
+          {profile.role}
         </Badge>
       </motion.div>
 
       <motion.div
-        variants={slideInFromLeft(0.5)}
+        variants={slideInFromLeft(0.4)}
         className="flex flex-col items-center justify-between gap-3 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
       >
-        <span className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-          Ashlok Chaudhary
-        </span>
+        <span>{profile.name}</span>
         <PointerHighlight rectangleClassName="rounded-none">
-          <span className="text-primary p-3 text-3xl lg:text-6xl">Full-Stack Developer</span>
+          <span className="text-primary p-3 text-2xl sm:text-3xl lg:text-5xl">
+            Kubernetes | Multi-Cloud | CI/CD | Observability
+          </span>
         </PointerHighlight>
-        <span className="text-base text-muted-foreground italic max-w-[500px] mx-auto">
-          Crafting clean, performant & responsive web experiences using modern technologies.
+        <span className="text-base text-muted-foreground italic max-w-3xl mx-auto">
+          {profile.summary}
         </span>
       </motion.div>
 
       <motion.div
-        variants={slideInFromRight(0.8)}
-        className="mt-4 flex flex-row items-center justify-between gap-2"
+        variants={slideInFromRight(0.6)}
+        className="mt-4 flex flex-wrap items-center justify-center gap-3"
       >
         <NavbarButton
+          as="button"
+          type="button"
           variant="primary"
           className="flex items-center gap-2 shadow"
-          aria-label="Scroll Down"
-          onClick={handleConnectClick}
+          aria-label="Scroll to contact"
+          onClick={() => scrollToSection('contact')}
         >
-          <span className="w-2 h-2 bg-destructive rounded-full"></span>
-          Let&apos;s Connect ↓
+          <span className="w-2 h-2 bg-destructive rounded-full" />
+          Let&apos;s Connect
         </NavbarButton>
+
+        <NavbarButton
+          variant="secondary"
+          className="flex items-center gap-2 shadow"
+          aria-label="Scroll to resume"
+          href="#resume"
+        >
+          View Resume
+        </NavbarButton>
+
         <NavbarButton
           variant="dark"
-          className="flex items-center gap-2 shadow outline"
-          aria-label="github"
-          href="https://github.com/Ashlok2003"
+          className="flex items-center gap-2 shadow"
+          aria-label="GitHub"
+          href={profile.github}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <FaGithub className="mr-1" />
           <span>GitHub</span>

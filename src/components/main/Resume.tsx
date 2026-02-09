@@ -16,8 +16,7 @@ const ResumeSection = () => {
 
   useEffect(() => {
     import('react-pdf').then(({ pdfjs }) => {
-      pdfjs.GlobalWorkerOptions.workerSrc =
-        'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.3.31/build/pdf.worker.min.mjs'
+      pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
     })
   }, [])
 
@@ -39,7 +38,7 @@ const ResumeSection = () => {
       >
         <h2 className="text-3xl sm:text-4xl font-bold text-primary tracking-tight">My Resume</h2>
         <p className="mt-2 text-muted-foreground text-sm italic">
-          View my professional qualifications and experience in full-stack development.
+          View my professional qualifications in DevOps, platform engineering, cloud, and AI infrastructure.
         </p>
       </motion.div>
 
