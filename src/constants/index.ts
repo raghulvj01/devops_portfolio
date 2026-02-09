@@ -135,7 +135,7 @@ export const technicalSkillCategories: SkillCategory[] = [
     category: 'Cloud Platforms',
     items: [
       'AWS (EC2, ECS, Lambda, EventBridge, SNS/SQS, S3, CDK, CloudFormation, X-Ray, CloudWatch)',
-      'Azure (VMs, AKS, Pipelines, DevOps)',
+      'Azure (VMs, Pipelines, DevOps)',
       'GCP (GKE, Cloud Functions, Pub/Sub, Cloud Build)',
       'Oracle Cloud (OCI, OKE, GenAI)',
     ],
