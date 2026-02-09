@@ -104,7 +104,7 @@ export const education: EducationItem[] = [
     degree: 'B.Tech, Information Technology',
     location: 'Coimbatore, India',
     date: 'Nov 2020 - May 2024',
-    cgpa: '8.92',
+    cgpa: '9.01',
   },
 ]
 
