@@ -44,10 +44,13 @@ const ContactUs: FC = () => {
     setStatus('')
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          ...formData,
+        }).toString(),
       })
 
       if (response.ok) {
@@ -139,7 +142,15 @@ const ContactUs: FC = () => {
             </motion.div>
 
             <motion.div className="w-full md:w-1/2 space-y-6" variants={cardVariants}>
-              <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact form">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                onSubmit={handleSubmit}
+                className="space-y-5"
+                aria-label="Contact form"
+              >
+                <input type="hidden" name="form-name" value="contact" />
                 {['name', 'email', 'subject'].map((field, i) => (
                   <motion.div
                     key={field}
@@ -217,9 +228,8 @@ const ContactUs: FC = () => {
 
                 {status && (
                   <motion.p
-                    className={`text-center text-sm ${
-                      status.includes('successfully') ? 'text-green-500' : 'text-red-500'
-                    }`}
+                    className={`text-center text-sm ${status.includes('successfully') ? 'text-green-500' : 'text-red-500'
+                      }`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
