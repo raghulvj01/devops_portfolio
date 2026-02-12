@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   title: `${profile.name} | ${profile.role}`,
   description:
     'DevOps and platform engineering portfolio focused on Kubernetes, multi-cloud architecture, CI/CD, observability, and production reliability.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/NavLogo.png',
+  },
 }
 
 export default function RootLayout({
