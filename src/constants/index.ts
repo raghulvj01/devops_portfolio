@@ -276,6 +276,7 @@ export const projects: ProjectItem[] = [
 ]
 
 export const certifications: string[] = [
+  'Nutanix Certified Professional - Multicloud Infrastructure 6',
   'The Joy of Computing Using Python - NPTEL (2022)',
   'Programming in Java - NPTEL (2021)',
   'Python Mega Course - Udemy (2021)',
