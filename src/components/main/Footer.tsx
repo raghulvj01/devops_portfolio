@@ -43,7 +43,7 @@ const Footer: FC = () => {
     },
   ]
 
-  const quickLinks = ['About', 'Skills', 'Experience', 'Projects', 'Credentials', 'Resume', 'Contact']
+  const quickLinks = ['About', 'Skills', 'Experience', 'Projects', 'Blog', 'Credentials', 'Resume', 'Contact']
 
   return (
     <footer className="relative w-full px-6 py-12 mt-20 bg-background text-foreground border-t border-border transition-colors">

@@ -1,3 +1,4 @@
+import BlogSection from '@/components/main/BlogSection'
 import { CredentialsSection } from '@/components/main/Blogs'
 import ContactUs from '@/components/main/ContactUs'
 import Hero from '@/components/main/Hero'
@@ -15,6 +16,7 @@ export default function Home() {
         <Skills />
         <Timeline />
         <Projects />
+        <BlogSection />
         <CredentialsSection />
         <ResumeSection />
         <ContactUs />

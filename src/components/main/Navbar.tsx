@@ -19,6 +19,7 @@ import {
   FaCode,
   FaEnvelope,
   FaFileAlt,
+  FaPenFancy,
   FaProjectDiagram,
   FaUser,
 } from 'react-icons/fa'
@@ -33,6 +34,7 @@ export function Navbar() {
     { name: 'Skills', link: '#skills', icon: <FaCode /> },
     { name: 'Experience', link: '#experience', icon: <FaBriefcase /> },
     { name: 'Projects', link: '#projects', icon: <FaProjectDiagram /> },
+    { name: 'Blog', link: '#blog', icon: <FaPenFancy /> },
     { name: 'Credentials', link: '#credentials', icon: <FaAward /> },
     { name: 'Resume', link: '#resume', icon: <FaFileAlt /> },
   ]

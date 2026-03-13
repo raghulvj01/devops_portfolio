@@ -38,6 +38,24 @@ export interface StrengthItem {
   detail: string
 }
 
+export interface BlogPost {
+  slug: string
+  title: string
+  excerpt: string
+  coverImage: string
+  date: string
+  readTime: string
+  tags: string[]
+  content: BlogSection[]
+}
+
+export interface BlogSection {
+  heading?: string
+  body: string
+  image?: string
+  imageAlt?: string
+}
+
 export const profile = {
   name: 'Raghul M',
   role: 'DevOps / Platform Engineer',
@@ -309,5 +327,47 @@ export const additionalStrengths: StrengthItem[] = [
     title: 'Leadership',
     detail:
       'Mentor for junior engineers on DevOps best practices, Kubernetes, CI/CD, and Infrastructure as Code to improve team productivity and knowledge sharing.',
+  },
+]
+
+export const blogPosts: BlogPost[] = [
+  {
+    slug: 'ebpf-kubernetes-observability-security',
+    title: 'eBPF: The Double-Edged Sword of Kubernetes Observability and Security',
+    excerpt:
+      'Extended Berkeley Packet Filter (eBPF) has evolved from a niche networking tool into a foundational technology for cloud-native observability and security. Understanding both sides is essential for platform engineers and security teams.',
+    coverImage: '/blog/cover.png',
+    date: '2026-03-13',
+    readTime: '10 min read',
+    tags: ['eBPF', 'Kubernetes', 'Observability', 'Security', 'Cloud Native'],
+    content: [
+      {
+        body: 'Extended Berkeley Packet Filter (eBPF) has evolved from a niche networking tool into a foundational technology for cloud-native observability and security. By running sandboxed programs directly in the Linux kernel, eBPF provides unprecedented visibility into system calls, network packets, and scheduler events\u2014without requiring code changes or side-car containers. In Kubernetes environments, this kernel-level access translates into deep, low-overhead insights that traditional agents struggle to match. Yet the same capabilities that make eBPF a powerful ally also introduce new risks: privileged access requirements, kernel-stability concerns, and operational complexity. Understanding both sides is essential for platform engineers and security teams seeking to harness eBPF safely and effectively.',
+        image: '/blog/cover.png',
+        imageAlt: 'Server room with networking infrastructure representing kernel-level technology',
+      },
+      {
+        heading: 'Why eBPF Feels Like a Superpower',
+        body: "eBPF's strength lies in its ability to instrument the kernel dynamically. Programs can be attached to kprobes, tracepoints, or uprobes to collect metrics, latency histograms, and custom events via BPF maps, all with sub-microsecond overhead. This enables real-time latency breakdowns, per-pod network flow visibility, and CPU-usage profiling without the resource penalty of traditional side-car agents. For observability, eBPF-based tools deliver high-resolution telemetry straight from the kernel, eliminating the need to instrument every application\u2014a critical advantage in dynamic, polyglot Kubernetes workloads.\n\nOn the security side, eBPF enforces policies at the kernel level, akin to SELinux-style checks but with greater flexibility. It can monitor syscalls, file access, and network communications with microsecond granularity, allowing detection of file-less malware, credential harvesting, container-escape attempts, and other runtime threats. Because the probes run in kernel space, attackers cannot easily tamper with or bypass them from within a container, providing a robust line of defense that operates beneath the surface of typical user-space monitoring tools.\n\nThese benefits are not theoretical. Projects like Cilium use eBPF for high-performance networking, identity-based security, and deep observability through Hubble, while Falco leverages eBPF drivers to detect runtime threats without kernel-module overhead. Tetragon, an eBPF-based security observability tool from the Cilium project, provides deep visibility into system-call activity and enforces runtime policies. The adoption of eBPF is accelerating across cloud providers and enterprises, driven by its ability to deliver granular insights with minimal performance impact.",
+        image: '/blog/observability.png',
+        imageAlt: 'Dashboard with monitoring metrics and data visualization',
+      },
+      {
+        heading: 'The Flip Side: Risks and Trade-offs',
+        body: "Despite its advantages, eBPF introduces significant considerations that must be managed carefully.\n\nPrivileged Access Requirements \u2014 Loading BPF programs typically requires CAP_SYS_ADMIN or equivalent root capabilities. Containers granted this privilege can potentially hijack processes, escape containment, or read memory of all processes on the node. Even without CAP_SYS_ADMIN, the combination of CAP_BPF and CAP_PERFMON (available since Linux 5.6) allows use of dangerous helpers like bpf_read_user to access other containers' memory, posing risks of sensitive-data theft. Studies have found that a small but non-negligible percentage of public container images mistakenly enable eBPF features, amplifying the attack surface if such images are deployed in privileged contexts.\n\nKernel Complexity and Stability \u2014 The eBPF verifier prevents most unsafe programs, but poorly written BPF can still cause kernel oops, infinite loops, or memory leaks\u2014especially when using advanced features like loops or custom maps. Kernel-version differences in tracepoint and kprobe support can create visibility gaps, particularly on hardened or custom kernels. This necessitates careful validation, CI-style BPF linting, and standardization on a kernel baseline across the cluster.\n\nOperational Overhead \u2014 Managing dozens of BPF programs, maps, and versions adds a new layer to the toolchain. Teams must handle program loading, unloading, updates, and debugging, which can be more complex than traditional agent-based approaches. Without proper tooling, this overhead can offset the performance gains eBPF promises.\n\nFalse Sense of Security \u2014 While eBPF provides deep visibility and enforcement, it does not replace secure image-building practices, network segmentation, least-privilege IAM, or runtime sandboxing (e.g., gVisor, KataContainers). Over-reliance on eBPF alone can leave gaps in the defense-in-depth strategy.",
+        image: '/blog/security.png',
+        imageAlt: 'Digital security concept with lock and shield iconography',
+      },
+      {
+        heading: 'Striking the Balance: Best Practices for Safe Adoption',
+        body: "To reap eBPF's benefits while mitigating its risks, organizations should adopt a disciplined, layered approach:\n\n1. Leverage Trusted eBPF Frameworks \u2014 Use established projects like Cilium (networking, security, observability), Falco (runtime security), and Tetragon (security observability) that handle capability dropping, program verification, upgrades, and declarative management via Kubernetes CRDs. These platforms abstract much of the complexity and provide built-in safeguards.\n\n2. Enforce Strict RBAC and PSP/OPA Policies \u2014 Restrict CAP_SYS_ADMIN and related capabilities to a minimal set of system-daemon pods. Use PodSecurityPolicy (or its OPA-based replacements) and admission controllers to prevent unprivileged workloads from gaining eBPF-loading privileges. Consider using user-namespaces to further isolate BPF-loading agents.\n\n3. Version-Control and CI-Test BPF Code \u2014 Treat BPF source code like any other application code: store it in Git, run it through a CI pipeline that builds with clang -target bpf, and enforce verifier checks before promotion. This catches unsafe patterns early and ensures reproducibility.\n\n4. Monitor the Monitor \u2014 Export metrics on BPF program load times, map memory usage, and verifier rejections. Set alerts for anomalies\u2014such as sudden spikes in map allocations or frequent program reloads\u2014that could signal misbehaving or malicious loads.\n\n5. Complement with Layered Defenses \u2014 Use eBPF as one layer in a broader security stack: combine it with image scanning (SBOM, vulnerability checks), network policies, service-mesh mTLS, and runtime sandboxing. Ensure that eBPF-based detection is paired with automated response mechanisms (e.g., Falco-sidekick alerts to SIEMs or SOAR platforms).\n\n6. Invest in Team Skill-Building \u2014 Provide workshops on reading BPF bytecode, interpreting verifier logs, and writing safe helpers. The skill gap is often the biggest barrier to safe adoption; upskilling teams on eBPF fundamentals reduces the likelihood of accidental misconfiguration.",
+        image: '/blog/kubernetes.png',
+        imageAlt: 'Cloud infrastructure and container orchestration visualization',
+      },
+      {
+        heading: 'Conclusion',
+        body: "eBPF is undeniably a double-edged sword: it slices through the opacity of the Linux kernel, delivering razor-sharp observability and security insights, but it also demands respect for its power. When wielded with disciplined access controls, rigorous verification, and operational maturity, eBPF becomes a force multiplier for Kubernetes reliability and security. Ignoring its risks, however, can turn that very same edge into a liability that undermines the stability you're trying to protect. For platform engineers and security engineers alike, the path forward lies in embracing eBPF's potential while implementing the safeguards that keep its edge sharp, safe, and firmly under control.",
+      },
+    ],
   },
 ]
