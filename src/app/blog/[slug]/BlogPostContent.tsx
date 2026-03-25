@@ -134,7 +134,7 @@ export default function BlogPostContent({ post }: { post: BlogPost }) {
             className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl mb-16"
         >
             <div className="relative w-full h-[40vh] min-h-[400px] md:h-[50vh] min-h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-border/40 bg-black/40 backdrop-blur-sm z-10">
-              <Blog3DCover src={post.coverImage} alt={post.title} />
+              <Blog3DCover src={post.coverImage} />
               <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10 pointer-events-none rounded-3xl" />
             </div>
         </motion.div>
