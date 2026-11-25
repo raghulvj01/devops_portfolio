@@ -1,3 +1,4 @@
+import { AwardsSection } from '@/components/main/Awards'
 import BlogSection from '@/components/main/BlogSection'
 import { CredentialsSection } from '@/components/main/Blogs'
 import ContactUs from '@/components/main/ContactUs'
@@ -18,6 +19,7 @@ export default function Home() {
         <Projects />
         <BlogSection />
         <CredentialsSection />
+        <AwardsSection />
         <ResumeSection />
         <ContactUs />
         <Toaster position="bottom-right" />

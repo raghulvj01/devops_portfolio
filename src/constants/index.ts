@@ -3,6 +3,11 @@ export interface SocialLink {
   href: string
 }
 
+export interface CareerHighlight {
+  title: string
+  detail: string
+}
+
 export interface ExperienceItem {
   role: string
   company: string
@@ -29,8 +34,16 @@ export interface ProjectItem {
   title: string
   period: string
   stack: string
-  imageURL: string
+  category?: 'Client Engagement' | 'Open Source'
+  packageName?: string
+  imageURL?: string
   highlights: string[]
+}
+
+export interface AwardItem {
+  title: string
+  issuer: string
+  date: string
 }
 
 export interface StrengthItem {
@@ -67,7 +80,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/raghulm21/',
   github: 'https://github.com/raghulvj01',
   summary:
-    'DevOps / Platform Engineer building and operating production CI/CD and cloud infrastructure across AWS, Azure, GCP, and Oracle Cloud. Strong in Kubernetes (Nutanix NKP, EKS, GKE, OKE), GitOps (Argo CD), IaC (Terraform, AWS CDK), and observability (Datadog, Prometheus/Grafana, OpenTelemetry). Delivered measurable impact: 40% faster deployments, 30% cost reduction, and 99.5% uptime for high-traffic systems.',
+    'DevOps / Platform Engineer specializing in cloud security, Kubernetes, and secure delivery across AWS, GCP, and OCI. Experienced in Infrastructure as Code, security automation, CI/CD, observability, and GenAI infrastructure, with a focus on building secure, resilient, and scalable cloud platforms.',
 }
 
 export const socials: SocialLink[] = [
@@ -76,21 +89,48 @@ export const socials: SocialLink[] = [
   { name: 'Email', href: `mailto:${profile.email}` },
 ]
 
+export const careerHighlights: CareerHighlight[] = [
+  {
+    title: 'Protect the Edge',
+    detail:
+      'AWS WAF, Cloudflare WAF & Zero Trust, hostname controls and application-layer protection.',
+  },
+  {
+    title: 'Secure the Pipeline',
+    detail:
+      'Semgrep SAST, OWASP ZAP, vulnerability scanning and container security integrated into CI/CD.',
+  },
+  {
+    title: 'Defend the Runtime',
+    detail:
+      'GuardDuty, Security Hub CSPM, IAM/RBAC, KMS, CloudTrail and security monitoring.',
+  },
+  {
+    title: 'Engineer for Resilience',
+    detail:
+      'Kubernetes, multi-cloud infrastructure, DR validation, backup strategy and infrastructure hardening.',
+  },
+  {
+    title: 'Automate at Scale',
+    detail:
+      'Terraform, AWS CDK, Jenkins, GitOps, EventBridge, SNS and automated security workflows.',
+  },
+]
+
 export const workExperience: ExperienceItem[] = [
   {
-    role: 'DevOps Engineer',
+    role: 'DevSecOps Engineer',
     company: 'Log-UsIMS Technologies Pvt. Ltd.',
     location: 'Bengaluru, India',
     date: 'May 2024 - Present',
     summary:
-      'Built and maintained multi-cloud CI/CD and platform infrastructure across AWS, Azure, GCP, and Oracle Cloud.',
+      'Design, secure, and operate cloud-native infrastructure, Kubernetes platforms, and automated DevSecOps workflows across AWS, GCP, and OCI.',
     achievements: [
-      'Reduced deployment time by 40% and increased releases from weekly to daily using Jenkins and AWS CodePipeline.',
-      'Integrated DevSecOps controls (SonarQube, Snyk, Trivy, OWASP ZAP) to scan code, containers, and IaC pre-release.',
-      'Operated Kubernetes platforms (Nutanix NKP, EKS, GKE, OKE) with Argo CD across 200+ containers and 15+ clusters while sustaining 99.5% uptime.',
-      'Implemented Terraform and AWS CDK for 500+ resources, improving provisioning speed by 85% and enforcing PCI-DSS and SOC 2 controls.',
-      'Established observability across 50+ services using Datadog, Prometheus/Grafana, and OpenTelemetry, cutting MTTD by 55% and reducing MTTR to 15 minutes.',
-      'Led cost optimization and incident response improvements, reducing infrastructure costs by 30% and recurring incidents by 45%.',
+      'Design, secure and operate cloud-native infrastructure across AWS, GCP and OCI, supporting development, UAT and production environments.',
+      'Engineer Kubernetes platforms across EKS, GKE, OKE and Nutanix NKP, covering cluster operations, workload management, upgrades, access controls and platform hardening.',
+      'Embed security into CI/CD and infrastructure workflows through Infrastructure as Code, automated security checks, vulnerability management and deployment controls.',
+      'Automate infrastructure provisioning, deployments, monitoring and operational workflows using Terraform, AWS CDK, Jenkins, GitHub Actions and Python.',
+      'Support production reliability through observability, incident response, disaster recovery, capacity management and continuous infrastructure optimization.',
     ],
   },
   {
@@ -99,12 +139,12 @@ export const workExperience: ExperienceItem[] = [
     location: 'Bengaluru, India',
     date: 'Aug 2023 - May 2024',
     summary:
-      'Owned inbound/outbound pipeline execution and cross-functional customer onboarding initiatives.',
+      'Owned inbound/outbound pipeline execution, client retention, and cross-functional technical onboarding initiatives.',
     achievements: [
-      'Managed outbound and inbound sales pipeline, contributing to 25% revenue growth.',
-      'Improved retention and renewals through clear communication and SLA-driven follow-ups.',
-      'Maintained CRM hygiene and performed market research to identify new accounts and partnership opportunities.',
-      'Partnered with technical teams to translate requirements into service proposals and successful onboarding plans.',
+      'Managed outbound and inbound sales pipeline, contributing to 25% revenue growth through strategic lead qualification and conversion.',
+      'Improved retention and renewals through clear communication and SLA-driven follow-ups, strengthening client relationships and reducing churn.',
+      'Maintained CRM hygiene and performed market research to identify new accounts and partnership opportunities, expanding the addressable market.',
+      'Partnered with technical teams to translate client requirements into service proposals and successful onboarding plans, bridging sales and engineering.',
     ],
   },
 ]
@@ -114,74 +154,122 @@ export const education: EducationItem[] = [
     institution: 'Parul University Online',
     degree: 'MBA, Information Technology',
     location: 'Vadodara, India',
-    date: 'Jul 2024 - Present',
-    cgpa: '9.86',
+    date: 'Jul 2024 - May 2026',
+    cgpa: '9.67',
   },
   {
     institution: 'Coimbatore Institute of Engineering and Technology',
     degree: 'B.Tech, Information Technology',
     location: 'Coimbatore, India',
     date: 'Nov 2020 - May 2024',
-    cgpa: '9.01',
+    cgpa: '8.92',
   },
 ]
 
 export const technicalSkillCategories: SkillCategory[] = [
   {
-    category: 'AI/ML and GenAI',
+    category: 'DevSecOps & Application Security',
     items: [
-      'Nutanix Enterprise AI',
-      'Oracle GenAI',
-      'RAG Patterns',
-      'Vector Databases (Pinecone, Weaviate)',
-      'LLM Orchestration',
-      'Agentic Workflows',
-      'Prompt Engineering',
+      'Semgrep',
+      'Trivy',
+      'OWASP ZAP',
+      'Qualys',
+      'OpenVAS',
+      'Grype',
+      'SonarQube',
+      'Snyk',
+      'TruffleHog',
+      'SAST',
+      'DAST',
+      'SCA',
+      'Vulnerability Assessments',
     ],
   },
   {
-    category: 'DevSecOps',
+    category: 'Cloud Security',
     items: [
-      'SAST (SonarQube, Snyk, Grype, Semgrep)',
-      'DAST (OWASP ZAP, Trivy)',
-      'OPA Policy-as-Code',
-      'Native Container Scanner',
-      'pfSense Firewall',
+      'AWS WAF',
+      'Cloudflare WAF',
+      'GuardDuty',
+      'Security Hub CSPM',
+      'IAM',
+      'IAM Identity Center',
+      'RBAC',
+      'KMS',
+      'CloudTrail',
+      'CIS Benchmarks',
+      'PCI-DSS',
+    ],
+  },
+  {
+    category: 'AI/ML & GenAI',
+    items: [
+      'RAG Pipelines',
+      'Vector Databases (Qdrant, Weaviate)',
+      'LLM Orchestration',
+      'Agentic Workflows',
+      'Nutanix Enterprise AI',
+      'Oracle Cloud GenAI',
     ],
   },
   {
     category: 'Cloud Platforms',
-    items: [
-      'AWS (EC2, ECS, Lambda, EventBridge, SNS/SQS, S3, CDK, CloudFormation, X-Ray, CloudWatch)',
-      'Azure (VMs, Pipelines, DevOps)',
-      'GCP (GKE, Cloud Functions, Pub/Sub, Cloud Build)',
-      'Oracle Cloud (OCI, OKE, GenAI)',
-    ],
+    items: ['AWS', 'GCP', 'OCI', 'Nutanix'],
   },
   {
-    category: 'Container Orchestration',
+    category: 'Kubernetes & Containers',
     items: [
-      'Kubernetes (Nutanix NKP, AWS EKS, GCP GKE, Oracle OKE)',
+      'Kubernetes (EKS, GKE, OKE, Nutanix NKP)',
       'Docker',
-      'Helm Charts',
+      'Podman',
+      'Helm',
       'Argo CD',
       'Kustomize',
       'HPA/VPA',
+      'GitOps',
     ],
   },
   {
     category: 'Infrastructure as Code',
-    items: ['Terraform', 'AWS CDK', 'CloudFormation', 'Ansible', 'Pulumi'],
+    items: ['Terraform', 'AWS CDK', 'CloudFormation', 'Ansible'],
   },
   {
-    category: 'CI/CD',
+    category: 'CI/CD & Automation',
     items: [
       'Jenkins',
       'AWS CodePipeline',
-      'Azure Pipelines',
-      'GitLab CI/CD',
       'GitHub Actions',
+      'GitLab CI/CD',
       'Argo Workflows',
+      'Python',
+      'Bash',
+    ],
+  },
+  {
+    category: 'Observability & Monitoring',
+    items: [
+      'Datadog',
+      'Groundcover',
+      'Prometheus',
+      'Grafana',
+      'OpenTelemetry',
+      'AWS X-Ray',
+      'CloudWatch',
+      'CloudWatch Synthetics',
+      'ELK Stack',
+      'Kubecost',
+    ],
+  },
+  {
+    category: 'Event-Driven & Messaging',
+    items: [
+      'EventBridge',
+      'Pub/Sub',
+      'SNS/SQS',
+      'RabbitMQ',
+      'Kafka',
+      'Cloud Tasks',
+      'Step Functions',
     ],
   },
   {
@@ -189,53 +277,20 @@ export const technicalSkillCategories: SkillCategory[] = [
     items: [
       'MongoDB Atlas',
       'PostgreSQL',
-      'Redis',
+      'Redis (Standalone, Cluster, Memorystore)',
       'Elasticsearch',
       'Vector Databases',
-      'Nutanix Objects',
-      'S3',
     ],
   },
   {
-    category: 'Observability',
+    category: 'Systems & Networking',
     items: [
-      'Datadog (APM, Logs, RUM, Synthetics)',
-      'Groundcover',
-      'Prometheus',
-      'Grafana',
-      'OpenTelemetry',
-      'AWS X-Ray',
-      'CloudWatch',
-      'ELK Stack',
+      'Linux Administration (Amazon Linux 2/2023)',
+      'Git',
+      'nginx',
+      'SSL/TLS',
+      'Agile/SDLC',
     ],
-  },
-  {
-    category: 'Event-Driven',
-    items: [
-      'AWS Lambda',
-      'Cloud Functions',
-      'EventBridge',
-      'Pub/Sub',
-      'SNS/SQS',
-      'RabbitMQ',
-      'Apache Kafka',
-      'Step Functions',
-    ],
-  },
-  {
-    category: 'Programming',
-    items: ['Python', 'Java', 'Bash', 'Go', 'FastAPI', 'RESTful APIs'],
-  },
-  {
-    category: 'Operating Systems',
-    items: [
-      'Linux (Ubuntu, CentOS, RHEL, Amazon Linux, Debian)',
-      'Windows Server',
-    ],
-  },
-  {
-    category: 'Security and Compliance',
-    items: ['IAM', 'RBAC', 'SCPs', 'MFA', 'PCI-DSS', 'SOC', 'CloudTrail', 'GuardDuty'],
   },
 ]
 
@@ -243,61 +298,95 @@ export const projects: ProjectItem[] = [
   {
     title: 'Oxpay Financial Services Platform',
     period: 'Jul 2025 - Present',
-    stack: 'AWS ECS, Lambda, CDK, Jenkins',
+    stack: 'AWS ECS, Lambda, CDK, Jenkins, PCI-DSS',
+    category: 'Client Engagement',
     imageURL: '/oxpay-logo.jpg',
     highlights: [
-      'Designed a cloud-native financial platform on AWS (ECS) with Jenkins and AWS CodePipeline, improving deployment cycles by 40% with automated rollbacks.',
-      'Built event-driven payment processing with Lambda, EventBridge, and SNS/SQS for 100K+ daily transactions with sub-100ms latency; added X-Ray tracing to cut debugging time by 50%.',
-      'Implemented IaC with AWS CDK, pfSense firewall, and S3 encryption for PCI-DSS readiness, improving stack creation time by 35% through parallel provisioning.',
-      'Reduced infrastructure costs by 30% by optimizing ECS task placement and right-sizing task definitions while maintaining SLAs.',
-      'Hardened access controls with IAM, SCPs, and CloudTrail/CloudWatch audit logging, reducing security audit effort by 60%.',
+      'Infrastructure as Code: Built and managed production AWS infrastructure using Terraform and AWS CDK for repeatable and controlled deployments.',
+      'Secure the Edge: Hardened AWS WAF with protection against SQL injection, XSS, directory traversal and sensitive endpoint exposure.',
+      'Shift Security Left: Integrated Semgrep SAST and vulnerability scanning with CI/CD, alongside OWASP ZAP and Qualys/OpenVAS for security validation.',
+      'Protect the Runtime: Enabled GuardDuty Runtime Monitoring, Security Hub CSPM and least-privilege IAM/RBAC across production environments.',
+      'Monitor Everything: Built CDK-based CloudWatch monitoring across Lambda, ECS, API Gateway, Cognito and bastion hosts.',
+      'Harden & Comply: Supported PCI-DSS activities through security hardening, vulnerability remediation, KMS key rotation and infrastructure lifecycle upgrades.',
+      'Design for Recovery: Validated production DR across ECS, RDS Multi-AZ, S3 and Terraform/CDK with zero downtime during the GW3 failover drill.',
+      'Optimize the Cloud: Contributed approximately $2,500/month in recurring savings through resource cleanup, decommissioning and infrastructure optimization.',
     ],
   },
   {
     title: 'Ren3 AI Platform',
     period: 'Jun 2025 - Present',
-    stack: 'Oracle Cloud, GenAI, Nutanix Enterprise AI',
+    stack: 'Oracle Cloud, GenAI, Nutanix Enterprise AI, OKE',
+    category: 'Client Engagement',
     imageURL: '/ren3-logo.png',
     highlights: [
-      'Led architecture and production deployment of a distributed AI platform for enterprise search and conversational AI using RAG, vector retrieval, and GPU-hosted LLM inference.',
-      'Designed low-latency RAG inference with semantic retrieval, embeddings pipelines, and context-aware generation for high-relevance responses at scale.',
-      'Built multi-region AI inference routing to optimize latency, availability, and compute utilization across global cloud regions.',
-      'Implemented production-grade reliability patterns using Kubernetes orchestration, GitOps deployment strategy, and secure network isolation.',
+      'GenAI Platform: Designed and operated RAG-based AI infrastructure using vector databases, LLM services and cloud-native components across AWS, GCP and OCI.',
+      'AI Infrastructure: Evaluated and supported GPU-based workloads and enterprise AI platforms for scalable model deployment and inference.',
+      'AI Cost Governance: Built a centralized LLM cost dashboard covering multiple AI providers, providing model-wise usage, consumption and cost visibility for operational governance.',
+      'Protect the Perimeter: Evaluated Cloudflare Managed WAF and followed a controlled log-to-block rollout for production workloads.',
+    ],
+  },
+  {
+    title: 'Mondee Travel Platform (Abhi)',
+    period: 'Jul 2024 - Jan 2026',
+    stack: 'GCP GKE, OCI OKE, Terraform, Jenkins, Cloud Armor',
+    category: 'Client Engagement',
+    imageURL: '/mondee-travel-banner.svg',
+    highlights: [
+      'Build the Platform: Provisioned four-tier infrastructure across Dev, QA, UAT and Production using Terraform, GCP VPC, GKE, Cloud Armor and Cloud DNS, supporting 50+ microservices and mobile backend APIs.',
+      'Move Across Clouds: Led GCP-to-OCI migration covering OKE production clusters, private endpoints, Redis with TLS and multi-environment Terraform infrastructure, with automated health validation during production cutover.',
+      'Ship at Scale: Engineered 100+ Jenkins pipelines for microservices, infrastructure and mobile releases, including automated Android/iOS builds with semantic versioning.',
+      'Scale Kubernetes: Implemented workload segregation and node-pool consolidation across GKE and OKE, improving resource utilization while maintaining 99.5%+ service availability.',
+      'Observe Production: Established Groundcover and Datadog observability with automated error reporting, SSL expiry alerts, backup/restore validation and synthetic canary monitoring.',
     ],
   },
   {
     title: 'Blinc Travel Platform',
     period: 'May 2024 - Dec 2024',
-    stack: 'GCP GKE, Cloud Run, Cloud Scheduler, Cloud SQL (PostgreSQL)',
+    stack: 'GCP, Cloud Run, Cloud Scheduler, Terraform',
+    category: 'Client Engagement',
     imageURL: '/blinc-travel-banner.svg',
     highlights: [
-      'Provisioned and managed production infrastructure on GCP using GKE, Cloud Run, Cloud Scheduler, and Cloud SQL (PostgreSQL).',
-      'Operated containerized services across GKE and Cloud Run with environment configuration, scaling policies, and production monitoring.',
-      'Implemented scheduled background processing with Cloud Scheduler for batch jobs, data sync workflows, and maintenance tasks.',
-      'Managed Cloud SQL PostgreSQL provisioning, private networking, backups, and monitoring while supporting deployments, scaling events, and incident troubleshooting.',
+      'Build with IaC: Templated GCP infrastructure across Cloud Run, Cloud SQL/PostgreSQL and GKE using Terraform, reducing environment provisioning time by 60% and establishing GitOps workflows for the Abhi mobile backend.',
+      'Automate the Routine: Automated batch jobs using Cloud Scheduler and Jenkins, eliminating manual cron management, saving 3+ hours weekly and maintaining 99.8% availability under peak load.',
+      'Connect the Services: Deployed event-driven infrastructure using MongoDB Atlas, Redis Cluster/Memorystore, Elasticsearch with nginx reverse proxy, RabbitMQ brokers and Pub/Sub for real-time search, caching and event streaming.',
     ],
   },
   {
-    title: 'Mondee Travel Platform',
-    period: 'Sep 2024 - Present',
-    stack: 'GCP GKE, Oracle OKE, Elasticsearch',
-    imageURL: '/mondee-travel-banner.svg',
+    title: 'Aegis MCP',
+    period: 'Jan 2025 - Present',
+    stack: 'Python, FastMCP, FastAPI, boto3, JWT/RBAC',
+    category: 'Open Source',
+    packageName: '@raghulm/aegis-mcp',
     highlights: [
-      'Executed phased migration of 50+ workloads from GCP to Oracle Cloud (OCI) with zero data loss, delivering 25% cost reduction (USD 60K annually) using replication and DNS failover.',
-      'Deployed an agentic AI application on Oracle OKE using prompt chaining, routing, and parallelization, improving recommendation accuracy by 35% and conversion by 18%.',
-      'Built event-driven booking workflows using Cloud Functions, Pub/Sub, and RabbitMQ for 10M+ daily API requests with 99.9% success rate and autoscaling.',
-      'Integrated DevSecOps scanning (SonarQube, GCP Vul Scan, Oracle Vul Scanner, Grype, OWASP ZAP, Trivy), reducing production vulnerabilities by 60%.',
-      'Operated 5TB+ Elasticsearch with sub-50ms query latency and 99.95% availability.',
-      'Improved incident response by 45% through APM, metrics, log aggregation, SLO tracking, and proactive alerts.',
+      'Security Toolkit: Built an open-source DevSecOps MCP server using Python, FastMCP and FastAPI, exposing 19 security tools across AWS infrastructure, Kubernetes, application security and network analysis.',
+      'Shift-Left Security: Integrated Trivy, Semgrep and OSV.dev for container scanning, SAST and CVE analysis, alongside port scanning and SSL/TLS validation.',
+      'Secure Access: Implemented JWT-based RBAC, YAML-based security policies and structured JSON audit logging for controlled security operations and SIEM integration.',
+      'AI-Ready Security: Packaged the server as a non-root Docker image with health endpoints and published it to npm, enabling natural-language security workflows in Claude Desktop, Cursor and Windsurf through stdio and streamable-HTTP transports.',
     ],
   },
 ]
 
 export const certifications: string[] = [
-  'Nutanix Certified Professional - Multicloud Infrastructure 6',
-  'The Joy of Computing Using Python - NPTEL (2022)',
-  'Programming in Java - NPTEL (2021)',
-  'Python Mega Course - Udemy (2021)',
+  'Nutanix Certified Professional – Multicloud Infrastructure 7.5 — Nutanix (2026)',
+  'Nutanix Certified Professional – Multicloud Infrastructure 6.10 — Nutanix (2026)',
+  'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate — Oracle (2026)',
+  'Oracle Cloud Infrastructure 2025 Certified Foundations Associate — Oracle (2026)',
+  'Python Mega Course — Udemy (2021)',
+  'The Joy of Computing Using Python — NPTEL (2022)',
+  'Programming in Java — NPTEL (2021)',
+]
+
+export const awards: AwardItem[] = [
+  {
+    title: 'Best Performer Award',
+    issuer: 'Log-UsIMS Technologies Pvt. Ltd.',
+    date: 'Dec 2025',
+  },
+  {
+    title: 'Fast Learner Award',
+    issuer: 'Log-UsIMS Technologies Pvt. Ltd.',
+    date: 'Oct 2024',
+  },
 ]
 
 export const languages: string[] = [
@@ -305,6 +394,7 @@ export const languages: string[] = [
   'Tamil (Native)',
   'Kannada (Conversational)',
   'Telugu (Basic)',
+  'Malay (Basic)',
 ]
 
 export const additionalStrengths: StrengthItem[] = [

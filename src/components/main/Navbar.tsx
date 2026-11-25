@@ -21,6 +21,7 @@ import {
   FaFileAlt,
   FaPenFancy,
   FaProjectDiagram,
+  FaTrophy,
   FaUser,
 } from 'react-icons/fa'
 import { Button } from '../ui/button'
@@ -36,6 +37,7 @@ export function Navbar() {
     { name: 'Projects', link: '#projects', icon: <FaProjectDiagram /> },
     { name: 'Blog', link: '#blog', icon: <FaPenFancy /> },
     { name: 'Credentials', link: '#credentials', icon: <FaAward /> },
+    { name: 'Awards', link: '#awards', icon: <FaTrophy /> },
     { name: 'Resume', link: '#resume', icon: <FaFileAlt /> },
   ]
 

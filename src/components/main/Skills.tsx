@@ -1,6 +1,6 @@
 'use client'
 
-import { technicalSkillCategories } from '@/constants'
+import { careerHighlights, technicalSkillCategories } from '@/constants'
 import { motion } from 'framer-motion'
 
 const Skills = () => {
@@ -15,9 +15,29 @@ const Skills = () => {
           Technical Skills
         </h2>
         <p className="mt-2 text-sm sm:text-base text-muted-foreground font-medium">
-          Cloud-native, DevSecOps, and platform engineering capabilities from production systems.
+          DevSecOps, cloud security, Kubernetes, observability, and GenAI capabilities from production systems.
         </p>
       </div>
+
+      <motion.div
+        className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.4 }}
+      >
+        {careerHighlights.map((highlight) => (
+          <article
+            key={highlight.title}
+            className="rounded-lg border border-border/70 bg-card/80 p-4 shadow-sm"
+          >
+            <h3 className="text-sm font-semibold text-foreground">{highlight.title}</h3>
+            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+              {highlight.detail}
+            </p>
+          </article>
+        ))}
+      </motion.div>
 
       <motion.div
         className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4"
